@@ -28,12 +28,59 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Main";
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
+            outputBox = new RichTextBox();
+            inputBox = new RichTextBox();
+            sendBtn = new Button();
+            SuspendLayout();
+            // 
+            // outputBox
+            // 
+            outputBox.Location = new Point(12, 12);
+            outputBox.Name = "outputBox";
+            outputBox.ReadOnly = true;
+            outputBox.Size = new Size(353, 382);
+            outputBox.TabIndex = 0;
+            outputBox.Text = "";
+            // 
+            // inputBox
+            // 
+            inputBox.Location = new Point(12, 400);
+            inputBox.Name = "inputBox";
+            inputBox.Size = new Size(303, 38);
+            inputBox.TabIndex = 1;
+            inputBox.Text = "";
+            // 
+            // sendBtn
+            // 
+            sendBtn.BackColor = Color.White;
+            sendBtn.BackgroundImage = (Image)resources.GetObject("sendBtn.BackgroundImage");
+            sendBtn.BackgroundImageLayout = ImageLayout.Stretch;
+            sendBtn.FlatStyle = FlatStyle.Flat;
+            sendBtn.Location = new Point(321, 400);
+            sendBtn.Name = "sendBtn";
+            sendBtn.Size = new Size(44, 38);
+            sendBtn.TabIndex = 2;
+            sendBtn.UseVisualStyleBackColor = false;
+            sendBtn.Click += sendBtn_Click;
+            // 
+            // Main
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(sendBtn);
+            Controls.Add(inputBox);
+            Controls.Add(outputBox);
+            Name = "Main";
+            Text = "Main";
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private RichTextBox outputBox;
+        private RichTextBox inputBox;
+        private Button sendBtn;
     }
 }
