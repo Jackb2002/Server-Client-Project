@@ -45,13 +45,17 @@ namespace ChatClient
             }
 
             Debug.WriteLine("Sending message length " + message.Length + " to server");
-            await Client.SendMessageAsync(message);
+
+            string localPCName = Environment.MachineName;
+            Message msg = new Message(message, localPCName, "ClientText");
+            string jsonMessage = msg.ToJson();
+
+            await Client.SendMessageAsync(jsonMessage);
 
             inputBox.Invoke((MethodInvoker)(() =>
             {
                 inputBox.Clear();
             }));
         }
-
     }
 }

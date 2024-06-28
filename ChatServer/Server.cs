@@ -99,12 +99,7 @@ namespace ChatServer
                         break;
                     }
 
-                    var encryptedText = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-                    Debug.WriteLine("Server, Encrypted message received");
-                    var decryptedText = Decrypt(encryptedText);
-                    Debug.WriteLine($"Server, Decrypted message: {decryptedText}");
-                    string endpoint_ip = ((IPEndPoint)client.Client.RemoteEndPoint).Address.ToString();
-                    Console.WriteLine($"[{endpoint_ip}@{DateTime.Now}] - {decryptedText}");
+                    HandleClientMessage(client, buffer, bytesRead);
 
                     var response = "Message received";
                     var encryptedResponse = Encrypt(response, clientPublicKey);
@@ -123,6 +118,26 @@ namespace ChatServer
                 _clientPublicKeys.TryRemove(client, out _);
                 client.Close();
                 Debug.WriteLine("Server, Client disconnected");
+            }
+        }
+
+        private static void HandleClientMessage(TcpClient client, byte[] buffer, int bytesRead)
+        {
+            var encryptedText = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+            Debug.WriteLine("Server, Encrypted message received");
+            var decryptedText = Decrypt(encryptedText);
+            Debug.WriteLine($"Server, Decrypted message: {decryptedText}");
+            string endpoint_ip = ((IPEndPoint)client.Client.RemoteEndPoint).Address.ToString();
+
+            Message msg = Message.FromJson(decryptedText);
+            if (msg == null)
+            {
+                Console.WriteLine($"[{endpoint_ip}@{DateTime.Now}] - {decryptedText}");
+                return;
+            }
+            else
+            {
+                Console.WriteLine($"[{endpoint_ip}@{DateTime.Now}] decrypted to {msg}");
             }
         }
     }

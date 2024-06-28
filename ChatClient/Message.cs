@@ -50,6 +50,14 @@ namespace ChatClient
                     return $"{Time:HH:mm:ss} {Sender} sent an image";
                 case "File":
                     return $"{Time:HH:mm:ss} {Sender} sent a file";
+                case "ServerCommand":
+                    return $"{Time:HH:mm:ss} Server command: {Content}";
+                case "ClientCommand":
+                    return $"{Time:HH:mm:ss} {Sender} command: {Content}";
+                case "ServerHeartbeat":
+                    return $"{Time:HH:mm:ss} Server heartbeat: {Content}";
+                case "Aknowledgement":
+                    return $"{Time:HH:mm:ss} {Sender} aknowledged: {Content}";
                 default:
                     Debug.WriteLine($"Message has invalid message type - \"{Type}\"");
                     return $"{Time:HH:mm:ss} {Sender}: {Content}";
