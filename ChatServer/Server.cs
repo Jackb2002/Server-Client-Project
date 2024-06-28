@@ -103,6 +103,8 @@ namespace ChatServer
                     Debug.WriteLine("Server, Encrypted message received");
                     var decryptedText = Decrypt(encryptedText);
                     Debug.WriteLine($"Server, Decrypted message: {decryptedText}");
+                    string endpoint_ip = ((IPEndPoint)client.Client.RemoteEndPoint).Address.ToString();
+                    Console.WriteLine($"[{endpoint_ip}@{DateTime.Now}] - {decryptedText}");
 
                     var response = "Message received";
                     var encryptedResponse = Encrypt(response, clientPublicKey);
