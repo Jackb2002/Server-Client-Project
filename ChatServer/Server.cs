@@ -93,7 +93,11 @@ namespace ChatServer
                 while (true)
                 {
                     bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
-                    if (bytesRead == 0) break;
+                    if (bytesRead == 0)
+                    {
+                        Debug.WriteLine("Server, Client disconnected during read");
+                        break;
+                    }
 
                     var encryptedText = Encoding.UTF8.GetString(buffer, 0, bytesRead);
                     Debug.WriteLine("Server, Encrypted message received");
